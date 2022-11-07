@@ -1,0 +1,78 @@
+.CompBar{
+
+    background-color: #181235;
+
+    width: 400px;
+    height : 92.1vh;
+    margin-top:-699px;
+    left: -400%;
+    position :absolute;
+    margin-left: 100px;
+    z-index: -1;
+    color:var(--iconBar-secondary);
+    transition : 0.4s;
+}
+.CompBar.active{
+
+    left:0;
+    transition: 500ms;
+}
+
+.items {
+
+    width:'10px';
+     margin-left:'50px' ;
+     margin-Top:'50px'
+}
+.Compbar-title{
+
+    color: white;
+    font-size: 27px;
+    font-weight: bold;
+    margin-left: 50px;
+    margin-top: 10px;
+    
+    
+    width: 250px;
+    
+
+    
+
+}
+input[type=text], select {
+    width: 250px;
+    background-color:  #262450;
+    padding: 12px 20px;
+    margin: 19px 50px;
+    display: inline-block;
+    border: none;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 250px;
+    background-color: #8c3dff;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 50px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color:  #7518ff;
+  }
+  
+  .Comp-Button{
+    width: 77%;
+    background-color: #8c3dff;
+    color: white;
+    padding: 14px ;
+    margin: -10px 50px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+  }
