@@ -1,59 +1,43 @@
 import { margin } from "@mui/system";
-import React from "react";
+import React ,{useState}from "react";
 import Slider from "react-slick";
 
 import "../../style/slide.css";
 import "../../style/theme.css";
 import MovieCard from "./MovieCard";
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "green" }}
-      onClick={onClick}
-    />
-  );
-}
 
 
-const ImgSlider = ({ Data }) => {
-  console.log("Data", Data);
+
+const ImgSlider = ({ Data , limit , view}) => {
+
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
-    className: "center",
+    slidesToScroll: 3,
+    initialSlide: 0,
+
 
   };
-
   return (
-    <div>
-      {Data?.map((Image) => {
-
-        return (
+     <div>
+       {Data?.map((Image, index) => {
+         return (
           <div>
-            <div >
-          <h3>{Image.list}</h3>
-          <button style={{backgroundColor:'#ce2877' , border:'none' , borderRadius:'5px', height:'25px' , color:'white' ,position: 'relative', top: '-40px' , left:'200px' }} >View more</button>
+            <div>       
+         <h3>{Image.data?.[0].sub_type}</h3>
+          <button
+          onClick={()=>limit(index)} 
+          style={{backgroundColor:'#ce2877' , border:'none' , borderRadius:'5px', height:'25px' , color:'white' ,position: 'relative', top: '-40px' , left:'306px' }} >View more</button>
           </div>
           <div style={{marginBottom:'50px'}}>
           <Slider {...settings}>
-            {Image.images.map((Im) => {
-              return <MovieCard movie={Im} />;
+            {Image.data?.map((Im) => {
+              return<div>
+
+               <MovieCard movie={Im} />
+              </div>
             })}
           </Slider>
           </div>

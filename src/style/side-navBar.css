@@ -3,11 +3,11 @@
 
     background-color: var(--iconBar-Primary);
 
-    width: 100px;
+    width: 80px;
     height : 92.1vh;
     float: left;
     z-index: 1;
-    color:var(--iconBar-secondary);
+    color: var(--iconBar-secondary);
     transition : 0.4s;
 }
 
@@ -39,18 +39,19 @@
 
 .nav-menu{
     grid-template-rows: repeat(7,1fr);
-    margin-top: 90px;
+    margin-top: 40px;
 }
 .menu-items{
     height: 57px;
-    width: 4.5rem;
-    display: flex;
-    color : white;
-   
-   
-    margin:auto 10px 30px;
-    border-radius: 15px;
+    width: 3.5rem;
+    text-align: center;
+    font-size: 8px;
+    margin: 8px 10px;
+    border-radius: 10px;
     position: relative;
+    color: white;
+    display: flex;
+    flex-direction: column;
     
 
 }
@@ -61,22 +62,14 @@
     height: 30px;
     
 }
-.menu-items h3{
-    position:absolute;
-    margin: auto;
-    font-size: 10px;
-    bottom:0px;
-   
-    background:none;
-    color:#fff;
-    margin-left: 15px;
-    margin-bottom:-10px;
-   
-}
-.menu-items:hover{
 
+.menu-items:hover{
+    
     background-color: #8b3dff;
  
 
+}
+.menu-items.active{
+    background-color: #8b3dff;
 }
 

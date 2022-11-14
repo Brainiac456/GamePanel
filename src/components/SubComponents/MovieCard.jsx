@@ -12,16 +12,17 @@ const CardInfo = styled(CardContent)(({theme}) => ({
       }
   }));
 
-const MovieCard = ({ movie }) => {
-    console.log('movie', movie)
+const MovieCard = ({ movie}) => {
+
     return (
-        <Card sx={{ maxWidth: 70, position: "relative" }}>
+        <Card sx={{ maxWidth: 110, position: "relative" ,borderRadius:'14px' }}>
             <Box sx={{ position: 'relative'}}>
                 <CardMedia
                     component="img"
-                    height="70"
-                    image={movie}
+                    height="110"
+                    image={movie.file}
                     />
+                   
             </Box>
 
         </Card>

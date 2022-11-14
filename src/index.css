@@ -2,7 +2,7 @@
 :root{
 
   --iconBar-Primary:#19173d;
-  --iconBar-secondary:#8b3dff;
+  --iconBar-secondary:#8B3DFF;
   
 
 }
@@ -14,13 +14,14 @@
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px ;
-  
+  background-color: #130B2B;
   border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #8b3dff;
+
   border-radius: 10px;
 }
 
