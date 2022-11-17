@@ -6,7 +6,7 @@
 
     width: 455px;
     height : 92.1vh;
-    margin-top: -551px;
+    margin-top: -607px;
     left: -400%;
     
     margin-left: 80px;
@@ -72,9 +72,35 @@ input[type=text], select {
     background-color: #8c3dff;
     color: white;
     padding: 14px ;
-    margin: -10px 30px;
+    margin: 10px 30px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
 
   }
+
+
+  .Comp-Pricing-button{
+    width: 190px;
+    background-color: #1C153D;
+    color: white;
+    padding: 14px ;
+    margin: 10px 0px;
+    border: none;
+    cursor: pointer;
+
+
+  }
+  .Comp-Pricing-button:hover{
+    background-color:#1C153D
+  }
+
+ .Comp-Pricing-button.active{
+
+  background: linear-gradient(180deg, #251c52 95%, #ce2877 100%);
+  
+
+ }
+
+
+ 

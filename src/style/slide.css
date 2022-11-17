@@ -88,6 +88,7 @@
 .slick-slide img
 {
     display: block;
+ 
 }
 .slick-slide.slick-loading img
 {
@@ -123,3 +124,37 @@
     position: absolute;
 
 }
+
+.img-container {
+ 
+   color:'white'
+
+}
+
+.img-container.viewLess{
+    cursor: pointer;
+  
+    width: 120px !important; 
+    height: 120px !important; 
+    background: #262450;
+    border-radius: 10px;
+  }
+
+  .filter{
+    cursor: pointer;
+    margin: 0px 20px auto !important;
+    margin-top: 10px !important;
+    
+  }
+
+  .img-container.viewAll{
+    cursor: pointer;
+    width: 120px ;
+    height: 120px  ;
+     display: inline-block;
+    
+    background-color: #262450;
+    border-radius: 5px;
+    margin: 7px;
+
+  }

@@ -204,7 +204,7 @@
     color: #8c3dff;
 }button.slick-arrow.slick-next {
     position: absolute;
-    top: 8.40rem;
+    top: 9.10rem;
     right: 11rem;
     z-index: 1 !important;
     width:13px;
@@ -213,7 +213,7 @@
   
   button.slick-arrow.slick-prev {
     position: absolute;
-    top: 8.40rem;
+    top: 9.10rem;
     left: 9.35rem;
     z-index: 1 !important;
     width:13px;
