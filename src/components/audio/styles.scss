@@ -8,24 +8,22 @@
 .player {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px 0;
-  background-color: #212527;
+  height: 110px;
 
+  padding: 20px 0;
+  background-color: #1a1327 ;
   .song {
     user-select: none;
-    margin: 0 20px;
+    width: 100px;
+    margin-left: 10px;
     .song__title {
-      text-align: center;
-      margin: 0;
+      text-align: start;
+      
       color: white;
       
       font-weight: normal;
       font-size:15px;
 
-      &:hover {
-        color: greenyellow;
-      }
     }
 
     .song__artist {
@@ -44,18 +42,22 @@
 
   .controls {
     flex-grow: 1;
-    margin: 0 20px;
+    width: 1px;
+    margin-right: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: end;
+    color: #ce2877 !important;
   }
 
   .player__button {
     width: fit-content;
-    margin-bottom: 1px;
+    margin-bottom: -2px;
     background-color: transparent;
     border: none;
+    margin-right: 65px;
+
 
     &:focus {
       outline: none;
@@ -68,39 +70,49 @@
     }
 
     svg {
-      font-size: 2.5em;
+      font-size: 3.25em;
       color: #6638b1;
+     
     }
   }
 
   .bar {
     user-select: none;
-    width: 100%;
+    width: 350px;
     display: flex;
-    align-items: center;
+    align-items: start;
+    color: #ce2877 !important;
+    
+    
+
 
     .bar__time {
       color: white;
       font-size: 16px;
+      display: none;
     }
 
     .bar__progress {
       flex: 1;
       border-radius: 5px;
-      margin: 0 20px;
-      height: 10px;
+      margin-right:6px;
+      margin-left:-30px;
+      margin-top: -25px;
+      height: 5px;
       display: flex;
-      align-items: center;
+ 
       cursor: pointer;
+     
 
       .bar__progress__knob {
         position: relative;
+        display: none;
         height: 16px;
         width: 16px;
-        border: 1.5px solid white;
+        border: 1.5px solid #ce2877;
         border-radius: 50%;
         border: none;
-        background-color: #ce2877;
+        background-color: #ce2877 !important;
       }
     }
   }
@@ -129,4 +141,9 @@
       }
     }
   }
+}
+div[disabled]
+{
+  pointer-events: none;
+  opacity: 0.7;
 }

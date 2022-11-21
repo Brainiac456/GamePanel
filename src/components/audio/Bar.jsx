@@ -43,7 +43,7 @@ export default function Bar(props) {
       <div
         className="bar__progress"
         style={{
-          background: `linear-gradient(to right, orange ${curPercentage}%, white 0)`
+          background: `linear-gradient(to right, #ce2877 ${curPercentage}%, #392158 0)`
         }}
         onMouseDown={e => handleTimeDrag(e)}
       >

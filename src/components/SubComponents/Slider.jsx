@@ -1,31 +1,52 @@
 import React, { useState ,useEffect } from "react";
 import Slider from "react-slick";
-
+import axios from "axios";
 import "../../style/slide.css";
 import "../../style/theme.css";
 
-const ImgSlider = ({ Dat, limit}) => {
+const ImgSlider = ({ Dat,assetsType,onScrollHandler}) => {
   const [isSlider, setIsSlider] = useState([]);
-  const [Data , setData ]= useState()
+  const [Data , setData ]= useState([])
+  const [limit ,setLimit] = useState(10)
 
 
-const handleViewMore = (index, subType) => {
+const handleViewMore = async(index, subType) => {
 
+  setLimit(20)
   if(isSlider.includes(index)){
  
   let temp= isSlider
   let arr = temp.filter(item => item !== index)  
   setIsSlider(arr)
-  console.log('index',index)
+  
+
 }
 else
 {
   let temp = isSlider
   temp.push(index)
-  setIsSlider(temp);
-  console.log('slider', isSlider)
+  setIsSlider([...temp]);
+
+
 }
-    limit(subType);
+
+ axios.get((`https://dev.breshna.io/api/assets?templateId=62d654ff301b4243bb87ffb1`),
+{params :{
+  "limit": limit,
+  "assetTypeId": assetsType,
+  "assetSubType": subType
+}}).then((response) => {
+    const dataa = [...Data];
+    dataa[index]= response.data;
+      setData([...dataa]);
+
+}
+).catch(error => {
+  console.log(error);
+})
+
+
+
   };
 
   const settings = {
@@ -37,13 +58,19 @@ else
     initialSlide: 0,
   };
 
-  useEffect(()=>{
-      console.log('shit', Dat)
-    setData(Dat)
 
+useEffect(()=>{
+  console.log('data',Data)
+},[Data])
+
+
+  useEffect(()=>{ 
+
+    setData(Dat)
+    setLimit(20)
   },[][isSlider])
   return (
-    <div>
+     <div style={{ overflowX: "hidden",}}>
 
       {Data?.map((Image, index) => {
         return (
@@ -51,8 +78,8 @@ else
             <div>
               <h3 style={{ color: "white" }}>{Image.data?.[0].sub_type}</h3>
               <button
-                onClick={() => handleViewMore(index,Image.data?.[0].sub_type)}
-                name={index}
+                onClick={() => handleViewMore(index,Image.data?.[0].sub_type,'40')}
+               
                 style = {{
                   backgroundColor: "#ce2877",
                   border: "none",
@@ -64,18 +91,18 @@ else
                   left: "306px",
                 }}
               >
-                {isSlider.includes(index)?<div>View Less</div> :<div>ViewMore</div>}
+                {isSlider.includes(index)?<div>View Less</div> :<div>View More</div>}
               </button>
 
             </div>
             <div className="img-container" style={{ marginBottom: "50px" }}>
-            {console.log(" this",isSlider.includes(index),index , isSlider)}
-            
+           
               {!isSlider?.includes(index) ? 
                 <Slider {...settings}  key={index}>
                   {Image.data?.map((Im,ind) => {
                     return (
                       <div key={ind} className="img-container viewLess">
+                       
                         <img 
                           src={"https://dev.breshna.io/api/uploads/" + Im.file}
                           className="filter"
@@ -90,10 +117,11 @@ else
                   })}
                 </Slider>
               : 
-                
                 Image.data?.map((Im,ind) => {
-                  return (
+                  return (   
                 <div key={ind}  className="img-container viewAll">
+                 
+                   {console.log('f', Image.data.length)}
                       <img 
                         src={"https://dev.breshna.io/api/uploads/" + Im.file}
                         className="filter"

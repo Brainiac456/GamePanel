@@ -19,24 +19,18 @@ const CompBar = ({
   hasFrame,
   close,
 }) => {
-  const [typeAll, setTypeAll] = useState();
+  const [typeAll, setTypeAll] = useState(null);
   const [limit, setLimit] = useState(10);
   const [viewIndex, setViewIndex] = useState([]);
   const [isPremium, setIsPreminum] = useState(false);
+  const [scroll , setScroll] = useState()
 
   const [activePriceBtn , setActivePriceBtn]= useState(1)
-
+  const [musicCheck , setMusicCheck] = useState(false)
+  
   const fetchData = async () => {
 
     let Api = subtypes?.map((sub) => {
-    
-      if(sub.includes(viewIndex))
-      {
-      setLimit(20)
-      }
-      else
-      setLimit(10)
-
       return axios.get(
         `https://dev.breshna.io/api/assets?assetTypeId=${assetsType}&templateId=62d654ff301b4243bb87ffb1&assetSubType=${sub}&limit=${limit}&isPremium=${isPremium}`
       );
@@ -51,7 +45,7 @@ const CompBar = ({
             if(resp.data.message===undefined)
             Arr.push(resp.data);
           }); 
-          console.log('final', Arr)
+          
           setTypeAll(Arr);
   
         })
@@ -60,13 +54,16 @@ const CompBar = ({
   };
  
   useEffect(() => {
+   
     fetchData();
   }, []);
 
 
   useEffect(() => {
+  
     fetchData();
-  }, [limit, isPremium ,subtypes]);
+ 
+  }, [viewIndex,limit, isPremium ,subtypes]);
 
   const handleLimit = (index) => {
 
@@ -74,20 +71,27 @@ const CompBar = ({
     {
       let temp = viewIndex
       let arr = temp.filter(item => item !== index)  
-      setViewIndex(arr)
+      setViewIndex([...arr])
     }
     else{
     let temp = viewIndex
    
     temp.push(index)
     console.log('limit', temp)
-    setViewIndex(temp);
+    setViewIndex([...temp]);
 
     }
     
  
   };
+  const checkHandler = (e)=>{
+    setMusicCheck(e.target.checked)
+  }
 
+  const onScrollHandler = () => {
+    const element = document.getElementById("panel-id");
+    setScroll(element.scrollTop)
+ }
   const handlePremium = (e) => {
     if (e.target.name === "Premium") 
     {setIsPreminum(true);
@@ -116,7 +120,8 @@ const CompBar = ({
         </button>
         <div className="Compbar-title">{Title}</div>
 
-       <div style={{ display: "flex" }}>
+      {Title !=='Music' &&
+       <div style={{ display: "flex" }}> 
           <form>
             <input type="text" name="Search" placeholder="Search " />
           </form>
@@ -136,20 +141,30 @@ const CompBar = ({
             Search
           </button>
         </div>
+}
         {hasFrame === false ||
        (hasFrame === undefined && (
             <button className="Comp-Button">
               <BsCloudUploadFill
                 style={{
+                  textAlign:'center',
                   verticalAlign: "middle",
                   marginLeft: "auto",
                   marginRight: "7px",
                 }}
               />
-              Upload
+              Upload {Title}
             </button>
           ))}
 
+          {Title ==='Music' && 
+          <label class="container">No music
+          <input type="checkbox" value="Text" onChange={(e)=>checkHandler(e)}/>
+          <span class="checkmark"></span>
+        </label>
+
+          }
+    {Title !=='Music' &&
         <div style={{ display: "flex", margin: "0px 26px" }}>
           <button
             onClick={(e) => {
@@ -180,40 +195,45 @@ const CompBar = ({
             Premium
           </button>
         </div>
+        }
 
         {Title !== "Music" && (
-          <div style={{ marginTop: "50px" }}>
+          <div  style={{ marginTop: "50px" }}>
             <div
+              id="panel-id" onScroll={onScrollHandler}
               style={{
                 width: "409px",
-                height: "50vh",
+                height: "60vh",
                 marginLeft: "27px",
                 overflowX: "hidden",
               }}
             >
-             <ImgSlider Dat ={typeAll} limit={handleLimit} view={viewIndex} assetsType={assetsType} />
+          
+             <ImgSlider Dat ={typeAll}  onScrollHandler = {scroll} limit={handleLimit} view={viewIndex} assetsType={assetsType} />
             </div>
           </div>
         )}
       {Title === "Music" && (
-          <div
+          <div id="panel-id" onScroll={onScrollHandler}
             style={{
               width: "409px",
-              height: "50vh",
+              height: "71vh",
               marginLeft: "27px",
               overflowX: "hidden",
            }}
           >
-       {typeAll[0].data?.map((data) => {
+          
+       {typeAll && typeAll[0].data.map((data,index) => {
+            console.log('typeAll', typeAll)
          return <div key={data}
                 style={{
                   width: "409px",
-                  height: "15vh",
-                  backgroundColor:'#1a1327',
-                  marginTop:'10px'
+                  height: "13vh",
+                  marginTop:'0px'
                 }}
               > 
-              <Audio data={data} />
+              
+              <Audio data={data} index ={index} Disable = {musicCheck} />
               </div>
             })}
           </div>
