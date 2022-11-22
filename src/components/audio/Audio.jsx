@@ -11,10 +11,11 @@ import Top from './../top-navBar';
 
 function Audio({data,index ,Disable }) {
   
-  const { curTime, duration, playing, setPlaying, setClickedTime, setPlay } = useAudioPlayer();
+  const { curTime, duration, playing, setClickedTime, setPlay } = useAudioPlayer();
   const [isDisabled, setDisabled] = useState(true);
   const [selected, setSelected] = useState(true)
 
+  console.log('data',data)
 
   const handleSelected =(e)=>{
    
@@ -37,17 +38,17 @@ function Audio({data,index ,Disable }) {
   return (
     <div className="player">
       <audio id={index}>
-        <source src={"https://dev.breshna.io/api/uploads/sounds/2443415-366247-619fb98819f7bb212cee4d48.mp3"} type="audio/mpeg"/>
+        <source src={`https://dev.breshna.io/api/uploads/${data.file}`} type="audio/mpeg"/>
         Your browser does not support the <code>audio</code> element.
       </audio>
       <Song songName={data.name} />
       <div className="controls" disabled={Disable} >
         {playing ? 
-          <Pause name ="Pause" handleClick={(e) => setPlay(index,false)}  /> :
-          <Play  name  ="Play"  handleClick={(e) => setPlay(index,true)}  />
+          <Pause name ="Pause" handleClick={() => setPlay(index,false)}  /> :
+          <Play  name  ="Play"  handleClick={() => setPlay(index,true)}  />
         }
         {selected===true?
-        <button onClick={(e)=>handleSelected(e)} style={{background:'none',fontSize:'2.2rem' ,border:'none'}}>< BsFillPlusCircleFill style={{color:'#ce2877' ,position: 'relative',right:'6px',bottom:'42px' }} color="#000"/></button>   
+        <button onClick={(e)=>handleSelected(e)} style={{background:'none',fontSize:'2.2rem' ,border:'none'}}>< BsFillPlusCircleFill style={{color:'#ce2877',background:'white', borderRadius:'20px',position: 'relative',right:'6px',bottom:'42px' }} color="#000"/></button>   
         :
         <button onClick={(e)=>handleSelected(e)} style={{background:'none',fontSize:'2.2rem' ,border:'none'}}>< BsFillCheckCircleFill style={{color:'#ce2877', backgroundColor:'none',position: 'relative',right:'6px',bottom:'42px' }} color="#000"/></button>
         }

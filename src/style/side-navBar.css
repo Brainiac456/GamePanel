@@ -4,7 +4,7 @@
     background-color: var(--iconBar-Primary);
 
     width: 80px;
-    height : 94vh;
+    height : 100vh;
     float: left;
     z-index: 1;
     color: var(--iconBar-secondary);

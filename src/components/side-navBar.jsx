@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import CompBar from "./Comp-Bar";
 import "../style/side-navBar.css";
 import "../style/Comp-Bar.css";
@@ -12,7 +12,7 @@ const SideNav = () => {
   //sideBar functionality related 
   const [isExpended, setExpendedState] = useState(false);
   const [activeIndex, setActiveIndex]= useState('-1')
-  
+  const ref = useRef(null);
   //Assets data
   const [title, setTitle] = useState()
   const [subtypes, setSubtypes] = useState()
@@ -61,10 +61,23 @@ const SideNav = () => {
     setNavData(Data?.game_config.assets)
   },[Data])
 
-  
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (!ref?.current?.contains(e.target)) {
+        console.log("This one gets called because of the button click", e);
+ 
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick, false);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick, false);
+    };
+  }, []);
+
 
   return (
-    <div>
+    <div ref={ref}>
          <div className="side-nav-container">
         
          <div className="nav-upper">
@@ -84,7 +97,7 @@ const SideNav = () => {
           </div>
         </div >
       {isClicked && 
-           <div> 
+           <div > 
         <CompBar Expended = {isExpended} Title={title} assetsType= {assetsType} subtypes = {subtypes} hasFrame= {hasFrame} close ={navBarPostion}   />
           </div>
       }

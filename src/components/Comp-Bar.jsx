@@ -5,8 +5,9 @@ import { BsCloudUploadFill } from "react-icons/bs";
 import { ImCancelCircle } from "react-icons/im";
 import { SlDiamond } from "react-icons/sl";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useState ,useRef  } from "react";
 import axios from "axios";
+
 
 import './audio/styles.scss'
 import Audio from "./audio/Audio";
@@ -57,6 +58,11 @@ const CompBar = ({
    
     fetchData();
   }, []);
+  
+
+
+
+  
 
 
   useEffect(() => {
@@ -64,6 +70,8 @@ const CompBar = ({
     fetchData();
  
   }, [viewIndex,limit, isPremium ,subtypes]);
+
+
 
   const handleLimit = (index) => {
 
@@ -88,10 +96,13 @@ const CompBar = ({
     setMusicCheck(e.target.checked)
   }
 
+
   const onScrollHandler = () => {
     const element = document.getElementById("panel-id");
     setScroll(element.scrollTop)
+
  }
+ 
   const handlePremium = (e) => {
     if (e.target.name === "Premium") 
     {setIsPreminum(true);
@@ -104,8 +115,8 @@ const CompBar = ({
   };
 
   return (
-    <>
-      <div className={Expended === false ? "CompBar" : "CompBar active"}>
+    <div  >
+      <div  className={Expended === false ? "CompBar" : "CompBar active"}>
         <button
           onClick={(e) => close(e)}
           style={{
@@ -203,7 +214,7 @@ const CompBar = ({
               id="panel-id" onScroll={onScrollHandler}
               style={{
                 width: "409px",
-                height: "60vh",
+                height: "62vh",
                 marginLeft: "27px",
                 overflowX: "hidden",
               }}
@@ -217,7 +228,7 @@ const CompBar = ({
           <div id="panel-id" onScroll={onScrollHandler}
             style={{
               width: "409px",
-              height: "71vh",
+              height: "62vh",
               marginLeft: "27px",
               overflowX: "hidden",
            }}
@@ -233,13 +244,13 @@ const CompBar = ({
                 }}
               > 
               
-              <Audio data={data} index ={index} Disable = {musicCheck} />
+              <Audio data={data} index ={index} Disable = {musicCheck}  />
               </div>
             })}
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 export default CompBar;
