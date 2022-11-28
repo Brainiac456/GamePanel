@@ -4,7 +4,7 @@
     background-color: var(--iconBar-Primary);
 
     width: 80px;
-    height : 100vh;
+    height : 92vh;
     float: left;
     z-index: 1;
     color: var(--iconBar-secondary);
@@ -42,6 +42,7 @@
     margin-top: 40px;
 }
 .menu-items{
+    text-decoration: none;
     height: 65px;
     width: 4.0rem;
     text-align: center;
@@ -67,7 +68,7 @@
 .menu-items:hover{
     
     background-color: #8b3dff;
- 
+    text-decoration: none;
 
 }
 .menu-items.active{

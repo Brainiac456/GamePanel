@@ -26,12 +26,12 @@ body {
 
 .navButton{
     max-width: 110px;
-    min-width: 50px;
+    min-width: 100px;
     height: 35px;
     color: white;
     border-radius: 7px;
     font-size: 13px;
-    padding: 11px;
+
     background-color: transparent;
     outline: none;
     

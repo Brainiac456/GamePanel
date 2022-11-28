@@ -5,7 +5,7 @@
     position: absolute;
 
     width: 455px;
-    height : 100%;
+    height :92%;
     margin-top: -607px;
     left: -400%;
     
@@ -41,31 +41,30 @@
     
 
 }
-input[type=text], select {
+.input_field, select {
     width: 271px;
     background-color:  #262450;
     padding: 12px 20px;
     margin: 19px 29px;
     display: inline-block;
     border: none;
+    outline: none;
     border-radius: 8px;
     box-sizing: border-box;
   }
   
-  input[type=submit] {
-    width: 250px;
-    background-color: #8B3DFF;
+  .input_field {
+    width: 256px;
+    
     color: white;
-    padding: 14px 20px;
-    margin: 0px 50px;
+    height: 40px;
+    margin-top: 18px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
   }
   
-  input[type=submit]:hover {
-    background-color:  #7518ff;
-  }
+ 
   
   .Comp-Button{
     width: 82.8%;
@@ -120,11 +119,11 @@ input[type=text], select {
 
 /* Hide the browser's default checkbox */
 .container input {
-  position: absolute;
+
   opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+
+
+
 }
 
 /* Create a custom checkbox */
@@ -173,4 +172,9 @@ input[type=text], select {
   -ms-transform: rotate(45deg);
   transform: rotate(35deg);
 }
- 
+div[disabled]
+{
+  pointer-events: none;
+  opacity: 0.7;
+
+}

@@ -1,12 +1,12 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import CompBar from "./Comp-Bar";
 import "../style/side-navBar.css";
 import "../style/Comp-Bar.css";
 import axios from 'axios';
 
-const SideNav = () => {
+const SideNav = ({Data}) => {
   //Main data silos
-  const [Data , setData] = useState()
+
   const [NavData ,setNavData] = useState()
  
   //sideBar functionality related 
@@ -41,22 +41,6 @@ const SideNav = () => {
 
 
 
-  const fetchData=async()=>{
-   await axios.get("https://dev.breshna.io/api/game_templates/62d654ff301b4243bb87ffb1")
-    .then((response)=>{
-  
-      setData(response.data.data)
-    })
-    .catch(error=>console.error(`Error: $(error)`))
-
-  }
-
-  useEffect(()=>{
-
-     fetchData()
-
-   },[])
-
   useEffect(()=>{
     setNavData(Data?.game_config.assets)
   },[Data])
@@ -64,8 +48,15 @@ const SideNav = () => {
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (!ref?.current?.contains(e.target)) {
-        console.log("This one gets called because of the button click", e);
- 
+        if(e.path.length > 11){
+          
+          console.log('this',e.path.length)
+        }
+          else{
+
+        setIsClikced(false)
+        setActiveIndex('-1')
+          }
       }
     };
 
@@ -100,7 +91,8 @@ const SideNav = () => {
            <div > 
         <CompBar Expended = {isExpended} Title={title} assetsType= {assetsType} subtypes = {subtypes} hasFrame= {hasFrame} close ={navBarPostion}   />
           </div>
-      }
+
+           }
       </div>
     </div>
   );
