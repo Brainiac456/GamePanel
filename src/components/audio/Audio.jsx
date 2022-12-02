@@ -7,33 +7,30 @@ import Bar from "./Bar";
 import { BsFillPlusCircleFill,BsFillCheckCircleFill } from "react-icons/bs";
 
 import useAudioPlayer from './useAudioPlayer';
-import Top from './../top-navBar';
 
-function Audio({data,index ,Disable }) {
+
+function Audio({data,index ,Disable,musicSelect,musicCheck,Player ,musicRun }) {
   
-  const { curTime, duration, playing, setClickedTime, setPlay } = useAudioPlayer();
-  const [isDisabled, setDisabled] = useState(true);
-  const [selected, setSelected] = useState(true)
-
-  console.log('data',data)
-
+  const { curTime, duration, setClickedTime, setPlay } = useAudioPlayer();
   const handleSelected =(e)=>{
-   
-    setSelected(prevState=>!prevState)
+    e.preventDefault()
+    musicSelect(index)
+  }
+
+  const test=()=>{
+    Player(index)
   }
 
   useEffect(()=>{
 
-    if(Disable===false){
-    setDisabled(true)
-   
-  }
-    else 
-    {
-    setDisabled(false)
-      setSelected(true)
+    if(musicRun!==index){
+      setPlay(index,false)
     }
-  },[Disable])
+    else
+      setPlay(index,true)
+
+  })
+
 
   return (
     <div className="player">
@@ -43,14 +40,15 @@ function Audio({data,index ,Disable }) {
       </audio>
       <Song songName={data.name} />
       <div className="controls" disabled={Disable} >
-        {playing ? 
-          <Pause name ="Pause" handleClick={() => setPlay(index,false)}  /> :
-          <Play  name  ="Play"  handleClick={() => setPlay(index,true)}  />
+        {musicRun===index? 
+          <Pause name ="Pause" handleClick={() => setPlay(index,false)} handleClick2={()=>test()} /> 
+          :
+          <Play  name  ="Play"  handleClick={() => setPlay(index,true)}  handleClick2={()=>test()}  />
         }
-        {selected===true?
-        <button onClick={(e)=>handleSelected(e)} style={{background:'none',fontSize:'2.2rem' ,border:'none'}}>< BsFillPlusCircleFill style={{color:'#ce2877',background:'white', borderRadius:'20px',position: 'relative',right:'6px',bottom:'42px' }} color="#000"/></button>   
+        {index!==musicCheck?
+        <button onClick={(e)=>handleSelected(e)} style={{background:'none',fontSize:'2.2rem' ,border:'none'}}>< BsFillPlusCircleFill style={{color:'#ce2877',background:'white', borderRadius:'20px',position: 'relative',right:'6px',bottom:'38px' }} color="#000"/></button>   
         :
-        <button onClick={(e)=>handleSelected(e)} style={{background:'none',fontSize:'2.2rem' ,border:'none'}}>< BsFillCheckCircleFill style={{color:'#ce2877', backgroundColor:'none',position: 'relative',right:'6px',bottom:'42px' }} color="#000"/></button>
+        <button onClick={(e)=>handleSelected(e)} style={{background:'none',fontSize:'2.2rem' ,border:'none'}}>< BsFillCheckCircleFill style={{color:'#ce2877', backgroundColor:'none',position: 'relative',right:'6px',bottom:'38px' }} color="#000"/></button>
         }
         <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
       </div>

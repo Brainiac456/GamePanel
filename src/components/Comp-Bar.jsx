@@ -18,6 +18,7 @@ const CompBar = ({
   Title,
   hasFrame,
   close,
+  NameState
 }) => {
   const [typeAll, setTypeAll] = useState(null);
   const [limit, setLimit] = useState(10);
@@ -26,8 +27,11 @@ const CompBar = ({
   const [scrollTop, setScrollTop] = useState();
   const [scrollHeight, setScrollHeight] = useState();
 
+
   const [activePriceBtn, setActivePriceBtn] = useState(1);
   const [musicCheck, setMusicCheck] = useState(false);
+  const [musicSelect , setMusicSelect] = useState()
+  const [musicRun ,setMusicRun] = useState()
 
   const [viewAllClick, setViewAllClick] = useState(false);
 
@@ -55,6 +59,22 @@ const CompBar = ({
   const handleViewAll = () => {
     setViewAllClick((prevState) => !prevState);
   };
+
+  const handleMusicSelection = (value)=>{
+    if(value===musicSelect)
+    setMusicSelect(-1)
+    else{
+      setMusicSelect(value)
+    }
+  }
+
+  const handlePlay=(value)=>{
+    if(value===musicRun)
+    setMusicRun(-1)
+    else
+    setMusicRun(value)
+  }
+
 
   useEffect(() => {
     fetchData();
@@ -157,7 +177,7 @@ const CompBar = ({
           ))}
 
         {Title === "Music" && (
-          <label class="container">
+          <label class="container" style={{ paddingLeft:'150px'}}>
             No music
             <input
               type="checkbox"
@@ -231,6 +251,7 @@ const CompBar = ({
                 limit={handleLimit}
                 view={viewIndex}
                 assetsType={assetsType}
+                NameState= {NameState}
               />
             </div>
           </div>
@@ -247,8 +268,8 @@ const CompBar = ({
             }}
           >
             {typeAll &&
-              typeAll[0].data.map((data, index) => {
-                console.log("typeAll", typeAll);
+              typeAll[0]?.data.map((data, index) => {
+             
                 return (
                   <div
                     key={data}
@@ -258,7 +279,7 @@ const CompBar = ({
                       marginTop: "0px",
                     }}
                   >
-                    <Audio data={data} index={index} Disable={musicCheck} />
+                    <Audio data={data} index={index} Disable={musicCheck} musicSelect={handleMusicSelection} musicCheck={musicSelect} Player={handlePlay} musicRun={musicRun} />
                   </div>
                 );
               })}

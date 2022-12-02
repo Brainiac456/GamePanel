@@ -18,12 +18,14 @@ const SideNav = ({Data}) => {
   const [subtypes, setSubtypes] = useState()
   const [assetsType , setAssetsType]= useState()
   const [hasFrame, setHasFrame]= useState()
-
+  const [Name , setName] = useState()
   const [isClicked , setIsClikced]=useState(false)
 
 
-  const imgClickHanle = (assetSubTypes, name,assetTypeId,hasFrames,index) =>{
+  const imgClickHanle = (assetSubTypes, name,assetTypeName,assetTypeId,hasFrames,index) =>{
     
+   
+    setName(assetTypeName)
     setExpendedState(true)
     setSubtypes(assetSubTypes)
     setTitle(name)
@@ -73,12 +75,12 @@ const SideNav = ({Data}) => {
         
          <div className="nav-upper">
            <div className="nav-menu">
-            {NavData?.map(({ image, name, assetSubTypes,assetTypeId,hasFrames } ,index) => {
+            {NavData?.map(({ image, name, assetTypeName,assetSubTypes,assetTypeId,hasFrames } ,index) => {
             
               return (
                 
                 <a key={image} className={activeIndex===index?"menu-items active":"menu-items"}>
-                  <img src={image} onClick={()=>imgClickHanle(assetSubTypes,name,assetTypeId,hasFrames,index)} />
+                  <img src={image} onClick={()=>imgClickHanle(assetSubTypes,name, assetTypeName ,assetTypeId,hasFrames,index)} />
                   <div>{name}</div>
                  
                 </a>
@@ -89,7 +91,7 @@ const SideNav = ({Data}) => {
         </div >
       {isClicked && 
            <div > 
-        <CompBar Expended = {isExpended} Title={title} assetsType= {assetsType} subtypes = {subtypes} hasFrame= {hasFrame} close ={navBarPostion}   />
+        <CompBar Expended = {isExpended} Title={title} NameState = {Name} assetsType= {assetsType} subtypes = {subtypes} hasFrame= {hasFrame} close ={navBarPostion}   />
           </div>
 
            }

@@ -7,37 +7,54 @@ import { DataContext } from './Helper/context';
 import _ from 'lodash'
 
 const Main_Editor =()=> {
+  
   const [Data , setData] = useState()
   const [ImageData , setImageData] = useState()
   const [ContainerData, setContainerData] = useState()
   const [levels , setLevels] = useState()
-
+    
   const [TableData , setTableData] = useState()
- 
-
+   
   const [assets , setAssets] = useState()
   const [tableName , setTableName] = useState()
 
+  const [levelIndex , setLevelIndex] = useState(0)
+  
   const fetchData=async()=>{
     await axios.get("https://dev.breshna.io/api/game_templates/628cb173fdd0331e553ecd93")
      .then((response)=>{
-   
-       setData(response.data.data)
-       setLevels(response.data.data.levels[0])
-       setAssets(response.data.data.game_config.assets)
-       console.log('assets',response.data.data)
+      
+       setData(response.data.data)     
      })
      .catch(error=>console.error(`Error: $(error)`))
- 
    }
-
-
-
+  
+   useEffect(()=>{
+  
+    fetchData()
+ 
+   },[])
+  
 
    useEffect(()=>{
+    if(Data !== undefined && levels !==undefined){
+    let temp = Data
+    temp.levels = levels
+    setData(temp)
+    }
 
-    let temp2 = []
+   },[levels])
 
+   useEffect(()=>{
+    if(Data!==undefined){
+    setLevels(Data.levels)
+    setAssets(Data.game_config.assets)
+    }
+   },[Data])
+ 
+
+   useEffect(()=>{
+  
         if(levels !== undefined){
           let temp= assets.map(_levels =>{ 
             if(_levels.assetBox === true)
@@ -49,7 +66,7 @@ const Main_Editor =()=> {
       
           const temp3 = temp.map((_data)=>{
 
-       return  [{ [_data] : levels[_data] }]
+       return  [{ [_data] : levels[levelIndex][_data] }]
      
         })
 
@@ -58,19 +75,11 @@ const Main_Editor =()=> {
         }
    
     
-   },[levels])
+   },[levels,levelIndex])
+  
+
 
    useEffect(()=>{
-
-    fetchData()
-
-
-   },[])
-
-   useEffect(()=>{
-
-
-
      if(assets !==undefined){     
    
       let temp= assets.map(_levels =>{ 
@@ -80,11 +89,11 @@ const Main_Editor =()=> {
           temp= temp.filter(cur => cur);
          
      setTableName([...temp])
-   let temp2 = Object.keys(levels).map(_levels=>{
+   let temp2 = Object.keys(levels[levelIndex]).map(_levels=>{
 
        if(temp.includes(_levels))
        {
-       return  [{ [_levels] : levels[_levels] }]
+       return  [{ [_levels] : levels[levelIndex][_levels] }]
        }
       })  
       temp2= temp2.filter(cur => cur);
@@ -94,15 +103,18 @@ const Main_Editor =()=> {
     
 
       }
-   },[assets])
+   },[assets,levelIndex, levels])
  
 
     return (
         <div >
         <DataContext.Provider value= {{Image_data:{ImageData , setImageData}
                                        ,container_data:{ContainerData, setContainerData} 
-                                       ,TabData:{TableData , setTableData} 
+                                       ,TabData: {TableData , setTableData} 
                                        ,TabName: {tableName, setTableName}
+                                       ,Level:   {levels , setLevels}
+                                       ,lvlIndex:{levelIndex, setLevelIndex}
+                                       ,MainData:{Data , setData}
                                         }}>
         <Top/>
         <SideNav Data={Data}/>

@@ -43,8 +43,8 @@ function useAudioPlayer() {
     curTime,
     duration,
     playing,
-    setPlaying,
    setPlay(e,value){
+    
     setIndex(e)
     setPlaying(value)
 

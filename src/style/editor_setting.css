@@ -322,3 +322,19 @@ margin-bottom: 40px;
 
 
 }
+.active-content label{
+  margin: 10px 0 !important;
+}
+.form-switch{
+  position: relative;
+  margin: 1rem 0 3rem 0 !important;
+  padding-left: 0 !important;
+}
+#flexSwitchCheckDefault{
+  position: absolute;
+  left: 0px;
+  top: 35px;
+}
+.switch{
+  padding-left: 0 !important;
+}

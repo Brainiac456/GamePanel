@@ -7,7 +7,7 @@ import { DataContext } from "../../Helper/context";
 import { useContext } from "react";
 
 
-const ImgSlider = ({ Dat, assetsType , scrollTop , scrollHeight ,handleViewAll}) => {
+const ImgSlider = ({ Dat, assetsType , scrollTop , scrollHeight ,handleViewAll, NameState}) => {
   const [Data, setData] = useState(null);
 
   const [scrollLimit, setScrollLimit] = useState(32);
@@ -48,7 +48,7 @@ const ImgSlider = ({ Dat, assetsType , scrollTop , scrollHeight ,handleViewAll})
 
   }
 
-  const handleViewMore = async (index, subType, limit) => {
+  const handleViewMore = (index, subType, limit) => {
     handleViewAll()
     setViewMore(subType)
        viewAll(subType,limit,index)
@@ -66,16 +66,18 @@ const ImgSlider = ({ Dat, assetsType , scrollTop , scrollHeight ,handleViewAll})
   };
 
   useEffect(()=>{
-    console.log(TableData)
-  },
-  [TabData])
+ setInd(null)
+ setViewButton(null)
+  },[Dat])
 
   const onImageClick = (data) =>{
 
-    
-  
+
   let image = [...ImageData];
-  let table = [...TableData]
+  let table = [...TableData];
+
+
+    
     for(let i=0; i<ContainerData.length ; i++){
      if(image[i][0][ContainerData[i]].asset_type_id === data.asset_type_id){
        image[i][0][ContainerData[i]]= data;
@@ -87,27 +89,17 @@ const ImgSlider = ({ Dat, assetsType , scrollTop , scrollHeight ,handleViewAll})
 
   
   for (let i=0 ; i<tableName.length ;i++){
-
-    if(table[i][tableName[i]][0] !== undefined ){
-      console.log('tab',table[i][tableName[i]][0].asset_type_id,data.asset_type_id)
-      if(table[i][tableName[i]][0].asset_type_id === data.asset_type_id){
-          table[i][tableName[i]].push(data);
-      }
+      
+          if(table[i][NameState]){
+          table[i][NameState].push(data);
+      
     }
-    else {
-      table[i][TableData[i]].push(data);
-    }
+   
   }
 
    
       setTableData(table);
     
-
-
-
-
-  
-  
 
   }
 
@@ -148,7 +140,6 @@ const ImgSlider = ({ Dat, assetsType , scrollTop , scrollHeight ,handleViewAll})
               <div key={Image}>
                 <div>
                   <h3 style={{ color: "white" }}>{Image.data?.[0].sub_type}</h3>
-
                   {Image.data.length > 4 && viewButton !== index && (
                     <button
                       style={{
@@ -176,15 +167,15 @@ const ImgSlider = ({ Dat, assetsType , scrollTop , scrollHeight ,handleViewAll})
                     {Image.data?.map((Im, ind) => {
                       return (
                         <div key={ind} className="img-container viewLess">
-                          <img onClick={ ()=> onImageClick(Im)}
+                          <img onClick={()=>onImageClick(Im)}
                             src={
                               "https://dev.breshna.io/api/uploads/" + Im.file
-                            }
+                                }
                             className="filter"
                             alt=""
                             width="100%"
                             style={{ margin: "auto" }}
-                          />
+                            />
                         </div>
                       );
                     })}
@@ -230,6 +221,7 @@ const ImgSlider = ({ Dat, assetsType , scrollTop , scrollHeight ,handleViewAll})
                     return (
                       <div key={ind} className="img-container viewAll">
                         <img
+                           onClick={ ()=> onImageClick(Im)}
                           src={"https://dev.breshna.io/api/uploads/" + Im.file}
                           className="filter"
                           alt=""
